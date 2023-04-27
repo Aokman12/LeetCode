@@ -7,12 +7,12 @@ public:
             mp[heights[i]] = names[i];
         }
         
-        vector<string> ans;
+        int j=0;
         
         for(auto i: mp){
-            ans.push_back(i.second);
+            names[j++] = i.second;
         }
         
-        return ans;
+        return names;
     }
 };

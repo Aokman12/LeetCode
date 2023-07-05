@@ -4,10 +4,10 @@ public:
         int i=0;
         int j=0;
         int ans = 0;
-        bool flag = false;
+        bool zero = false;
         
         while(j<nums.size()){
-            if(flag && nums[j] == 0){
+            if(zero && nums[j] == 0){
                 ans = max(ans,j-i-1);
                 if(nums[i] == 0){
                     i++;
@@ -24,7 +24,7 @@ public:
                 j++;
             }
             else{
-                flag = true;
+                zero = true;
                 j++;
             }
         }

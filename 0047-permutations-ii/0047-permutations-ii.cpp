@@ -1,31 +1,28 @@
 class Solution {
-public:
-    void solve(vector<int> &nums,vector<bool> &used,vector<int> &permu,vector<vector<int>> &ans){
-        if(permu.size() == nums.size()){
-            ans.push_back(permu);
+private:
+    void permu(vector<int>& nums,vector<vector<int>> &ans,int pos){
+        if(pos >= nums.size()){
+            ans.push_back(nums);
             return;
         }
         
-        for(int i=0;i<nums.size();i++){
-            if(used[i] || i>0 && nums[i] == nums[i-1] && !used[i-1]){
+        unordered_set<int> sett;
+        
+        for(int i=pos;i<nums.size();i++){
+            if(sett.find(nums[i]) != sett.end()){
                 continue;
             }
-            used[i] = true;
-            permu.push_back(nums[i]);
-            solve(nums,used,permu,ans);
-            permu.pop_back();
-            used[i] = false;
+            sett.insert(nums[i]);
+            swap(nums[i],nums[pos]);
+            permu(nums,ans,pos+1);
+            swap(nums[i],nums[pos]);
         }
     }
-    
+public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
         vector<vector<int>> ans;
-        vector<int> permu;
-        vector<bool> used(nums.size(),false);
         
-        sort(nums.begin(),nums.end());
-        
-        solve(nums,used,permu,ans);
+        permu(nums,ans,0);
         
         return ans;
     }
